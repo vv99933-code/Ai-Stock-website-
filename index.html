@@ -1,5 +1,115 @@
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 20px;">
-  <img src="eco-images/image1.jpg" alt="Eco Image 1" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-  <img src="eco-images/image2.jpg" alt="Eco Image 2" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-  <img src="eco-images/image3.jpg" alt="Eco Image 3" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Stock Images</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8fafc;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #0d9488, #0f766e);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      padding: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .image-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .image-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+    .image-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid #eee;
+    }
+    .cta {
+      text-align: center;
+      padding: 20px;
+      margin: 20px 30px;
+    }
+    .cta a {
+      display: inline-block;
+      background: #0d9488;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: background 0.3s;
+    }
+    .cta a:hover {
+      background: #0f766e;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #1e293b;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        padding: 15px;
+      }
+      header h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AI Stock Images</h1>
+    <p>100% AI Generated • Royalty Free • Sustainable Living</p>
+  </header>
+
+  <div class="gallery">
+    <div class="image-card">
+      <img src="eco-images/4082d60e-353a-42c1-bcda-3195d3d89545.jpg" alt="Woman refilling liquid soap">
+    </div>
+    <div class="image-card">
+      <img src="eco-images/copilot_image_1765984512705.jpeg" alt="Reusable produce bags with vegetables">
+    </div>
+    <div class="image-card">
+      <img src="eco-images/lucid-origin_A_photorealistic_close-up_of_a_young.jpg" alt="Eco-friendly lifestyle concept">
+    </div>
+  </div>
+
+  <div class="cta">
+    <a href="gallery.html">👉 View All Images</a>
+  </div>
+
+  <footer>
+    <p>© 2025 AI Stock Media. All images are AI-generated and royalty-free.</p>
+  </footer>
+</body>
+</html>
