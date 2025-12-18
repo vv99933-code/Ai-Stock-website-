@@ -1,52 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Stock Images</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
-    header { background: #111; color: white; text-align: center; padding: 20px; }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-    img:hover { transform: scale(1.02); }
-    .cta {
-      text-align: center;
-      padding: 20px;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>AI Stock Images</h1>
-    <p>100% AI Generated | Royalty Free</p>
-  </header>
+<script>
+  const folderPath = 'eco-images/';
+  async function loadImagesFromFolder() {
+    try {
+      const response = await fetch(folderPath);
+      if (!response.ok) throw new Error('Folder not found');
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const links = Array.from(doc.querySelectorAll('a'))
+        .map(a => a.href)
+        .filter(href => /\.(jpg|jpeg|png|gif|webp)$/i.test(href))
+        .map(href => href.split('/').pop());
 
-  <div class="gallery">
-    <img src="eco-images/4082d60e-353a-42c1-bcda-3195d3d89545.jpg" alt="Eco Image 1">
-    <img src="eco-images/copilot_image_1765984512705.jpeg" alt="Eco Image 2">
-    <img src="eco-images/lucid-origin_A_photorealistic_close-up_of_a_young.jpg" alt="Eco Image 3">
-    <!-- जितनी इमेजेज हैं, उतनी ऐड करें -->
-  </div>
-
-  <div class="cta">
-    <a href="gallery.html" style="color: #007BFF; text-decoration: none; font-weight: bold;">👉 View All 100+ Images</a>
-  </div>
-
-  <footer style="background: #111; color: white; text-align: center; padding: 10px;">
-    © 2025 AI Stock Media
-  </footer>
-</body>
-</html>
+      const gallery = document.getElementById('gallery');
+      links.forEach(filename => {
+        const img = document.createElement('img');
+        img.src = folderPath + filename;
+        img.alt = filename.replace(/\.[^/.]+$/, "");
+        img.loading = "lazy";
+        gallery.appendChild(img);
+      });
+      document.getElementById('loading').style.display = 'none';
+    } catch (err) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error').textContent = '❌ Error: ' + err.message;
+      document.getElementById('error').style.display = 'block';
+    }
+  }
+  window.addEventListener('DOMContentLoaded', loadImagesFromFolder);
+</script>
