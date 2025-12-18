@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Stock Images — Eco Collection</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    header { background: #111; color: white; text-align: center; padding: 20px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    img:hover { transform: scale(1.02); }
+    .loading { text-align: center; padding: 40px; font-size: 18px; color: #555; }
+    .error { color: red; text-align: center; padding: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌿 AI Stock Images — Eco Collection</h1>
+    <p>100% AI Generated • Royalty Free • Sustainable Living</p>
+  </header>
+
+  <div class="loading" id="loading">⏳ Loading images...</div>
+  <div class="error" id="error" style="display:none;"></div>
+  <div class="gallery" id="gallery"></div>
+
+  <script>
+    // वह फ़ोल्डर जहाँ आपकी इमेजेज हैं
+    const folderPath = 'eco-images/';
+
+    // यह फ़ंक्शन फ़ोल्डर से सभी इमेजेज को ऑटोमैटिक लोड करता है
+    async function loadImagesFromFolder() {
+      try {
+        const response = await fetch(folderPath);
+        if (!response.ok) throw new Error('Folder not found');
+
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // सभी लिंक्स (इमेज फ़ाइल नाम) निकालें
+        const links = Array.from(doc.querySelectorAll('a'))
+          .map(a => a.href)
+          .filter(href => /\.(jpg|jpeg|png|gif|webp)$/i.test(href))
+          .map(href => href.split('/').pop());
+
+        if (links.length === 0) {
+          document.getElementById('loading').textContent = 'No images found in folder.';
+          return;
+        }
+
+        const gallery = document.getElementById('gallery');
+        links.forEach(filename => {
+          const img = document.createElement('img');
+          img.src = folderPath + filename;
+          img.alt = filename.replace(/\.[^/.]+$/, "");
+          img.loading = "lazy";
+          gallery.appendChild(img);
+        });
+
+        document.getElementById('loading').style.display = 'none';
+
+      } catch (err) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').textContent = '❌ Error loading images: ' + err.message;
+        document.getElementById('error').style.display = 'block';
+      }
+    }
+
+    // पेज लोड होते ही इमेजेज लोड होंगी
+    window.addEventListener('DOMContentLoaded', loadImagesFromFolder);
+  </script>
+</body>
+</html>
